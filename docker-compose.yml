@@ -1,0 +1,25 @@
+version: '3'
+services:
+  apiServer:
+    image: ubuntu:20.04
+    volumes:
+      - /Users/karlm/Projects/07-VA/VA-Backend:/app
+    ports:
+      - 5000:5000
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        buildno: 1
+  database:
+    image: postgres
+    env_file:
+      - database.env
+    ports:
+      - 5432:5432
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+
+# Persistent Docker volumes
+volumes:
+  database-data:
